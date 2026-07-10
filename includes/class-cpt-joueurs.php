@@ -3,8 +3,7 @@
 class CPT_Joueurs {
     public function __construct() {
         add_action( 'init', array( $this, 'equipe_foot_custom_register_joueurs_post_types' ) );
-        add_action( 'init', array( $this, 'joueurs_register_meta' ) );
-        add_action( 'save_post_joueurs', array( $this, 'joueurs_sauvegarder_meta' ));
+        add_action( 'init', array( $this, 'equipe_foot_custom_register_joueurs_meta_fields' ) );
     }
     public function equipe_foot_custom_register_joueurs_post_types() {
 	// La déclaration de nos Custom Post Types et Taxonomies ira ici
@@ -31,8 +30,7 @@ class CPT_Joueurs {
 	register_post_type( 'joueurs', $args );
 
 }
-
-public function joueurs_register_meta() {
+public function equipe_foot_custom_register_joueurs_meta_fields() {
     $fields = array(
         'date_naissance' => array(
             'type'   => 'string',
@@ -59,27 +57,5 @@ public function joueurs_register_meta() {
     }
 }
 
-
-public function joueurs_sauvegarder_meta( $post_id ) {
-    if ( ! isset( $_POST['joueurs_meta_nonce'] ) || ! wp_verify_nonce( $_POST['joueurs_meta_nonce'], 'joueurs_sauvegarder_meta' ) ) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-
-    if ( isset( $_POST['joueurs_date_naissance'] ) ) {
-        update_post_meta( $post_id, 'date_naissance', sanitize_text_field( $_POST['joueurs_date_naissance'] ) );
-    }
-    if ( isset( $_POST['joueurs_poste'] ) ) {
-        update_post_meta( $post_id, 'poste', sanitize_text_field( $_POST['joueurs_poste'] ) );
-    }
-    if ( isset( $_POST['joueurs_numero_prefere'] ) ) {
-        update_post_meta( $post_id, 'numero_prefere', absint( $_POST['joueurs_numero_prefere'] ) );
-    }
-}
 
 }
