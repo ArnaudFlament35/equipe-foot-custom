@@ -26,5 +26,9 @@ function equipe_foot_custom_log( $message ) {
 equipe_foot_custom_log('Equipe Foot Custom plugin loaded');
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-cpt-joueurs.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-meta-box-joueurs.php';
+require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-taxonomie-categorie.php';
+require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-calculs-joueurs.php';
 new CPT_Joueurs();
 new Meta_Box_Joueurs(); 
+new Taxonomie_Categorie();
+new Calculs_Joueurs();
