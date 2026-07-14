@@ -17,9 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'EQUIPE_FOOT_CUSTOM_VERSION', '1.0.0' );
 define( 'EQUIPE_FOOT_CUSTOM_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EQUIPE_FOOT_CUSTOM_URL', plugin_dir_url( __FILE__ ) );
-define('EQUIPE_FOOT_CUSTOM_LOG', EQUIPE_FOOT_CUSTOM_DIR . '/logs/error.log');
+define('EQUIPE_FOOT_CUSTOM_LOG_DIR', EQUIPE_FOOT_CUSTOM_DIR . 'logs');
+define('EQUIPE_FOOT_CUSTOM_LOG', EQUIPE_FOOT_CUSTOM_LOG_DIR . '/error.log');
 
 function equipe_foot_custom_log( $message ) {
+    if ( ! is_dir( EQUIPE_FOOT_CUSTOM_LOG_DIR ) ) {
+        wp_mkdir_p( EQUIPE_FOOT_CUSTOM_LOG_DIR );
+    }
     $line = '[' . date('H:i:s') . '] ' . print_r($message, true) . PHP_EOL;
     error_log($line, 3, EQUIPE_FOOT_CUSTOM_LOG);
 }
