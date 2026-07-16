@@ -33,8 +33,18 @@ require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-meta-box-joueurs.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-taxonomie-categorie.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-calculs-joueurs.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-cpt-entraineurs.php';
+
+require_once EQUIPE_FOOT_CUSTOM_DIR .  'includes/class-cron-recalcul.php';
+
+new Cron_Recalcul();
 new CPT_Joueurs();
 new Meta_Box_Joueurs(); 
 new Taxonomie_Categorie();
 new Calculs_Joueurs();
 new CPT_Entraineurs();
+
+register_activation_hook( __FILE__, array( 'Cron_Recalcul', 'on_activate' ) );
+
+  register_deactivation_hook( __FILE__, function() {
+      wp_clear_scheduled_hook( 'equipe_foot_custom_cron_recalcul' );
+  } );

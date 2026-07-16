@@ -12,7 +12,7 @@ class Taxonomie_Categorie {
         'menu_name'     => 'Catégories',
     );
 
-    register_taxonomy( 'categorie_joueur', 'joueurs', array(
+    register_taxonomy( 'categorie_joueur', array( 'joueurs', 'entraineurs' ), array(
         'labels'            => $labels,
         'hierarchical'      => true,
         'public'            => true,
