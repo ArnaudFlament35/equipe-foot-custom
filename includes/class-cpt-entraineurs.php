@@ -12,6 +12,7 @@ class CPT_Entraineurs {
         'all_items' => 'Tous les entraineurs',  // affiché dans le sous menu
         'singular_name' => 'Entraineur',
         'add_new_item' => 'Ajouter un entraineur',
+        'add_new' => 'Ajouter un entraineur',
         'edit_item' => 'Modifier l\'entraineur',
         'menu_name' => 'Entraineurs'
     );
@@ -22,7 +23,7 @@ class CPT_Entraineurs {
         'show_in_rest' => true,
         'has_archive' => true,
         'supports' => array( 'title','thumbnail' ),
-        'menu_position' => 6, 
+        'menu_position' => 21, 
         'menu_icon' => 'dashicons-admin-users',
     );
 

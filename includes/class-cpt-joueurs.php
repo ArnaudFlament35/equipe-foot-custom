@@ -13,6 +13,7 @@ class CPT_Joueurs {
         'all_items' => 'Tous les joueurs',  // affiché dans le sous menu
         'singular_name' => 'Joueur',
         'add_new_item' => 'Ajouter un joueur',
+        'add_new' => 'Ajouter un joueur',
         'edit_item' => 'Modifier le joueur',
         'menu_name' => 'Joueurs'
     );
@@ -23,7 +24,7 @@ class CPT_Joueurs {
         'show_in_rest' => true,
         'has_archive' => true,
         'supports' => array( 'title', 'editor','thumbnail' ),
-        'menu_position' => 5, 
+        'menu_position' => 20, 
         'menu_icon' => 'dashicons-buddicons-buddypress-logo',
 	);
 
