@@ -19,6 +19,7 @@ define( 'EQUIPE_FOOT_CUSTOM_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EQUIPE_FOOT_CUSTOM_URL', plugin_dir_url( __FILE__ ) );
 define('EQUIPE_FOOT_CUSTOM_LOG_DIR', EQUIPE_FOOT_CUSTOM_DIR . 'logs');
 define('EQUIPE_FOOT_CUSTOM_LOG', EQUIPE_FOOT_CUSTOM_LOG_DIR . '/error.log');
+define('EQUIPE_FOOT_CUSTOM_TEMPLATE_DIR', EQUIPE_FOOT_CUSTOM_DIR . 'templates');
 
 function equipe_foot_custom_log( $message ) {
     if ( ! is_dir( EQUIPE_FOOT_CUSTOM_LOG_DIR ) ) {
@@ -33,7 +34,6 @@ require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-meta-box-joueurs.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-taxonomie-categorie.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-calculs-joueurs.php';
 require_once EQUIPE_FOOT_CUSTOM_DIR . 'includes/class-cpt-entraineurs.php';
-
 require_once EQUIPE_FOOT_CUSTOM_DIR .  'includes/class-cron-recalcul.php';
 
 new Cron_Recalcul();
@@ -48,3 +48,14 @@ register_activation_hook( __FILE__, array( 'Cron_Recalcul', 'on_activate' ) );
   register_deactivation_hook( __FILE__, function() {
       wp_clear_scheduled_hook( 'equipe_foot_custom_cron_recalcul' );
   } );
+  add_filter( 'single_template', 'get_custom_post_type_template' );
+
+  function get_custom_post_type_template( $single_template ) {
+      global $post;
+  
+      if ( !empty($post) && !empty($post->post_type) && 'joueurs' === $post->post_type ) {
+          $single_template = EQUIPE_FOOT_CUSTOM_TEMPLATE_DIR . '/single-joueurs.php';
+      }
+  
+      return $single_template;
+  }
